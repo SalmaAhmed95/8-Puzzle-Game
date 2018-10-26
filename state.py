@@ -4,17 +4,21 @@ import copy
 class State:
     def __init__(self, matrix, parent=None, empty_cell_index=None):
         self.matrix = matrix
+        self.parent = parent
+        self.cost = 0
         if empty_cell_index is None:
             self.emptyCellIndex = self.locate_empty_cell()
         else:
             self.emptyCellIndex = empty_cell_index
-        self.parent = parent
 
     def __eq__(self, other):
         return self.matrix == other.matrix
 
     def __hash__(self):
         return hash(tuple(tuple(x) for x in self.matrix))
+    
+     #def __lt__(self, other):
+        #return self._score < other._score
 
     def locate_empty_cell(self):
         for i in range(len(self.matrix)):
