@@ -16,7 +16,7 @@ class Visualizer:
         self.screen = turtle.TurtleScreen(self.canvas)
         self.screen.tracer(False)
         self.t = turtle.RawTurtle(self.screen, visible=False)
-        tk.Button(master=self.root, text="Previous", command=self.previous).pack(side=tk.LEFT)
+        tk.Button(master=self.root,text="Previous", command=self.previous).pack(side=tk.LEFT)
         tk.Button(master=self.root, text="Next", command=self.next).pack(side=tk.RIGHT)
         self.SIZE = side_length
         self.font = ("Arial", int(0.75 * self.SIZE), "normal")
