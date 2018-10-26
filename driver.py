@@ -1,6 +1,7 @@
 from state import State
 import puzzle_solver
-from queue import LifoQueue, Queue, PriorityQueue
+import visualizer
+from queue import LifoQueue, Queue
 import copy
 
 matrix  = [[1,2,5],[3,4,0],[6,7,8]]
@@ -11,9 +12,17 @@ matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 # testState = State(matrix2)
 # print(testState.is_solvable())
 
-#path = puzzle_solver.solve_by_bfs(matrix)
-#while (not path.empty()):
-#    print(path.get().matrix)
+path = puzzle_solver.solve_by_bfs(matrix)
+path_list = []
+while not path.empty():
+    path_matrix = path.get().matrix
+    print(path_matrix)
+    path_list.append(path_matrix)
+
+puzzle_visualizer = visualizer.Visualizer(path_list, 140, -200, 240, 'black')
+puzzle_visualizer.play()
+
+
 
 
 # test2 = State(matrix2)
@@ -28,19 +37,3 @@ matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 # print(nextStates[0] == nextStates2[0])
 # for state in nextStates:
 #     print(state.matrix)
-
-start = State(matrix)
-end = State(matrix)
-frontier = PriorityQueue()
-
-frontier.put((5, start))
-frontier.put((2, start))
-frontier.put((1, start))
-frontier.put((7, start))
-frontier.put((0, start))
-
-#print(frontier.queue)
-while not frontier.empty():
-    print(frontier.queue.index(frontier.get()))
-    #print(frontier.get())
-    
