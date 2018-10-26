@@ -1,5 +1,6 @@
 from state import State
 import puzzle_solver
+import visualizer
 from queue import LifoQueue, Queue
 import copy
 
@@ -12,8 +13,16 @@ matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 # print(testState.is_solvable())
 
 path = puzzle_solver.solve_by_bfs(matrix)
-while (not path.empty()):
-    print(path.get().matrix)
+path_list = []
+while not path.empty():
+    path_matrix = path.get().matrix
+    print(path_matrix)
+    path_list.append(path_matrix)
+
+puzzle_visualizer = visualizer.Visualizer(path_list, 140, -200, 240, 'black')
+puzzle_visualizer.play()
+
+
 
 
 # test2 = State(matrix2)
