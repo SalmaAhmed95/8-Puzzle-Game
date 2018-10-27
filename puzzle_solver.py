@@ -28,7 +28,9 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
                             frontier_set.remove(state)
                             frontier_set.add(state)
     else:
-        return LifoQueue()
+        path = LifoQueue()
+        path.put(start_state)
+        return path
 
 '''
 CLEAN
