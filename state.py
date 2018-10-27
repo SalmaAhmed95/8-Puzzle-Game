@@ -30,7 +30,7 @@ class State:
         try:
             return (self.cost + self.heuristic) < (other.cost + other.heuristic)
         except:
-            print("ERROR:", sys.exc_info()[0]) # check
+            print("Error when executing __lt__:", sys.exc_info()[0])
 
 
     def locate_empty_cell(self):
