@@ -20,10 +20,6 @@ class State:
 
     def __eq__(self, other):
         return self.matrix == other.matrix
-
-
-    def __hash__(self):
-        return hash(tuple(tuple(x) for x in self.matrix))
     
     
     def __lt__(self, other):
@@ -31,6 +27,10 @@ class State:
             return (self.cost + self.heuristic) < (other.cost + other.heuristic)
         except:
             print("Error when executing __lt__:", sys.exc_info()[0])
+            
+    
+    def __hash__(self):
+        return hash(tuple(tuple(x) for x in self.matrix))
 
 
     def locate_empty_cell(self):

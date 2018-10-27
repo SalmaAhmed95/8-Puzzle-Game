@@ -38,10 +38,3 @@ puzzle_visualizer.play()
 # print(nextStates[0] == nextStates2[0])
 # for state in nextStates:
 #     print(state.matrix)
-
-from informed_util import Heuristic
-
-a = [[0, 1, 2], [3, 4, 6], [5, 8, 7]]
-heuristic = Heuristic(distance.cityblock)
-print('manhattan_distance', heuristic.evaluate(a))
-#print('euclidean_distance', heuristic(a, distance.euclidean))
