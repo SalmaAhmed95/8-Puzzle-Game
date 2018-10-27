@@ -1,4 +1,5 @@
 from queue import Queue, LifoQueue, PriorityQueue
+from heap_util import decrease_key
 from state import State
 
 """
@@ -26,17 +27,17 @@ def solve_by_dfs(matrix):
         return graph_search(stack, frontier_set)
 
 
-def solve_by_a_star(matrix):
+def solve_by_a_star(matrix, heuristic):
     priority_queue = PriorityQueue()
     frontier_set = set() # for later search
-    start_state = State(matrix)
+    start_state = State(matrix, heuristic=heuristic)
     if start_state.is_solvable():
         priority_queue.put(start_state)
         frontier_set.add(start_state)
-        return graph_search(priority_queue)
+        return graph_search(priority_queue, frontier_set, prioritized=True)
 
 
-def graph_search(frontier_list, frontier_set):
+def graph_search(frontier_list, frontier_set, prioritized=False):
     explored = set()
     while not frontier_list.empty():
         current_state = frontier_list.get()
@@ -49,6 +50,11 @@ def graph_search(frontier_list, frontier_set):
             if state not in explored and state not in frontier_set:
                 frontier_list.put(state)
                 frontier_set.add(state)
+            elif prioritized:
+                if state in frontier_set:
+                    if decrease_key(frontier_list.queue, 0, frontier_list.queue.index(state), state):
+                        frontier_set.remove(state)
+                        frontier_set.add(state)
 
 
 def get_path(current_state):
