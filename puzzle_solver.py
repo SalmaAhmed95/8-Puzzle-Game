@@ -10,12 +10,9 @@ def solve_by_bfs(matrix):
     queue = Queue()
     frontier_set = set() # for later search
     start_state = State(matrix)
-    print('start state = ', start_state)
     if start_state.is_solvable():
         queue.put(start_state)
-        print('queue state = ', queue.queue)
         frontier_set.add(start_state)
-        print('set state = ', frontier_set)
         return graph_search(queue, frontier_set)
     
 
@@ -42,9 +39,7 @@ def solve_by_a_star(matrix):
 def graph_search(frontier_list, frontier_set):
     explored = set()
     while not frontier_list.empty():
-        print('Q in search = ', frontier_list.queue)
         current_state = frontier_list.get()
-        print('set in search = ', frontier_set)
         frontier_set.remove(current_state)
         explored.add(current_state)
         if current_state.is_goal_state():
