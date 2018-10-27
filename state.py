@@ -2,10 +2,11 @@ import copy
 
 
 class State:
-    def __init__(self, matrix, parent=None, empty_cell_index=None):
+    def __init__(self, matrix, parent=None, cost=0, empty_cell_index=None, priority=None):
         self.matrix = matrix
         self.parent = parent
-        self.cost = 0
+        self.cost = cost
+        self.priority = priority
         if empty_cell_index is None:
             self.emptyCellIndex = self.locate_empty_cell()
         else:
@@ -17,8 +18,9 @@ class State:
     def __hash__(self):
         return hash(tuple(tuple(x) for x in self.matrix))
     
-     #def __lt__(self, other):
-        #return self._score < other._score
+#    def __lt__(self, other):
+#        if self.priority is not None:
+#            return self.priority(args) < other.priority(args)
 
     def locate_empty_cell(self):
         for i in range(len(self.matrix)):
@@ -33,19 +35,19 @@ class State:
         if i != len(self.matrix) - 1:
             down_matrix = copy.deepcopy(self.matrix)
             down_matrix[i + 1][j], down_matrix[i][j] = down_matrix[i][j], down_matrix[i + 1][j]
-            next_states.append(State(down_matrix, self, [i + 1, j]))
+            next_states.append(State(down_matrix, self, self.cost + 1, [i + 1, j]))
         if j != len(self.matrix[0]) - 1:
             left_matrix = copy.deepcopy(self.matrix)
             left_matrix[i][j + 1], left_matrix[i][j] = left_matrix[i][j], left_matrix[i][j + 1]
-            next_states.append(State(left_matrix, self, [i, j + 1]))
+            next_states.append(State(left_matrix, self, self.cost + 1, [i, j + 1]))
         if j != 0:
             right_matrix = copy.deepcopy(self.matrix)
             right_matrix[i][j - 1], right_matrix[i][j] = right_matrix[i][j], right_matrix[i][j - 1]
-            next_states.append(State(right_matrix, self, [i, j - 1]))
+            next_states.append(State(right_matrix, self, self.cost + 1, [i, j - 1]))
         if i != 0:
             up_matrix = copy.deepcopy(self.matrix)
             up_matrix[i - 1][j], up_matrix[i][j] = up_matrix[i][j], up_matrix[i - 1][j]
-            next_states.append(State(up_matrix, self, [i - 1, j]))
+            next_states.append(State(up_matrix, self, self.cost + 1, [i - 1, j]))
 
         return next_states
 

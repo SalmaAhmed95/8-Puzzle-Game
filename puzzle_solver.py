@@ -1,6 +1,14 @@
-from queue import LifoQueue, Queue
+from queue import Queue, LifoQueue, PriorityQueue
 from state import State
 
+
+def solve_by_bfs(matrix):
+    queue = Queue()
+    start_state = State(matrix)
+    if start_state.is_solvable():
+        queue.put(start_state)
+        return graph_search(queue)
+    
 
 def solve_by_dfs(matrix):
     stack = LifoQueue()
@@ -10,12 +18,12 @@ def solve_by_dfs(matrix):
         return graph_search(stack)
 
 
-def solve_by_bfs(matrix):
-    queue = Queue()
+def solve_by_a_star(matrix):
+    priority_queue = PriorityQueue()
     start_state = State(matrix)
     if start_state.is_solvable():
-        queue.put(start_state)
-        return graph_search(queue)
+        priority_queue.put(start_state)
+        return graph_search(priority_queue)
 
 
 def graph_search(frontier_list):
