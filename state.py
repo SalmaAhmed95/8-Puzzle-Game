@@ -6,11 +6,12 @@ class State:
         self.matrix = matrix
         self.parent = parent
         self.cost = cost
+        self.heuristic = heuristic
         
         if heuristic is None:
-            self.heuristic = 0
+            self.heuristic_cost = 0
         else:
-            self.heuristic = heuristic.evaluate(self.matrix)
+            self.heuristic_cost = heuristic.evaluate(self.matrix)
             
         if empty_cell_index is None:
             self.emptyCellIndex = self.locate_empty_cell()
@@ -24,7 +25,7 @@ class State:
     
     def __lt__(self, other):
         try:
-            return (self.cost + self.heuristic) < (other.cost + other.heuristic)
+            return (self.cost + self.heuristic_cost) < (other.cost + other.heuristic_cost)
         except:
             print("Error when executing __lt__:", sys.exc_info()[0])
             
@@ -47,19 +48,23 @@ class State:
         if i != len(self.matrix) - 1:
             down_matrix = copy.deepcopy(self.matrix)
             down_matrix[i + 1][j], down_matrix[i][j] = down_matrix[i][j], down_matrix[i + 1][j]
-            next_states.append(State(down_matrix, self, self.cost + 1, [i + 1, j]))
+            next_states.append(State(down_matrix, parent=self, cost=self.cost + 1,
+                                     empty_cell_index=[i + 1, j], heuristic=self.heuristic))
         if j != len(self.matrix[0]) - 1:
             left_matrix = copy.deepcopy(self.matrix)
             left_matrix[i][j + 1], left_matrix[i][j] = left_matrix[i][j], left_matrix[i][j + 1]
-            next_states.append(State(left_matrix, self, self.cost + 1, [i, j + 1]))
+            next_states.append(State(left_matrix, parent=self, cost=self.cost + 1,
+                                     empty_cell_index=[i, j + 1], heuristic=self.heuristic))
         if j != 0:
             right_matrix = copy.deepcopy(self.matrix)
             right_matrix[i][j - 1], right_matrix[i][j] = right_matrix[i][j], right_matrix[i][j - 1]
-            next_states.append(State(right_matrix, self, self.cost + 1, [i, j - 1]))
+            next_states.append(State(right_matrix, parent=self, cost=self.cost + 1,
+                                     empty_cell_index=[i, j - 1], heuristic=self.heuristic))
         if i != 0:
             up_matrix = copy.deepcopy(self.matrix)
             up_matrix[i - 1][j], up_matrix[i][j] = up_matrix[i][j], up_matrix[i - 1][j]
-            next_states.append(State(up_matrix, self, self.cost + 1, [i - 1, j]))
+            next_states.append(State(up_matrix, parent=self, cost=self.cost + 1,
+                                     empty_cell_index=[i - 1, j], heuristic=self.heuristic))
 
         return next_states
 
