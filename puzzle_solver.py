@@ -16,7 +16,7 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
             frontier_set.remove(current_state)
             explored.add(current_state)
             if current_state.is_goal_state():
-                return get_path(current_state)
+                return get_path(current_state),explored
             next_states = current_state.generate_moves()
             for state in next_states:
                 if state not in explored and state not in frontier_set:
@@ -30,7 +30,7 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
     else:
         path = LifoQueue()
         path.put(start_state)
-        return path
+        return path, explored
 
 '''
 CLEAN

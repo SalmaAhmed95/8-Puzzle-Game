@@ -10,12 +10,17 @@ import copy
 matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 
 # path = puzzle_solver.solve(matrix, 'a_star', prioritized=True, heuristic=Heuristic(distance.cityblock))
-path = puzzle_solver.solve(matrix, 'bfs')
+path, explored = puzzle_solver.solve(matrix, 'bfs')
 path_list = []
+
+print("PATH")
 while not path.empty():
     path_matrix = path.get().matrix
     print(path_matrix)
     path_list.append(path_matrix)
+
+print("EXPLORED")
+print([state.matrix for state in explored])
 
 puzzle_visualizer = visualizer.Visualizer(path_list, 140, -200, 240, 'black')
 puzzle_visualizer.play()
