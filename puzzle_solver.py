@@ -26,7 +26,8 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
             search_depth = max(search_depth, current_state.cost)
             
             if current_state.is_goal_state():
-                return get_path(current_state), explored, search_depth
+                path = get_path(current_state)
+                return path, cost(path), explored, search_depth
             next_states = current_state.generate_moves()
             for state in next_states:
                 if state not in explored and state not in frontier_set:
@@ -63,7 +64,8 @@ def get_path(current_state):
     return path
 
 
-
+def cost(path):
+    return len(path.queue) - 1
 
 
 
