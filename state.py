@@ -1,32 +1,44 @@
 import copy
-
+import sys
 
 class State:
-    def __init__(self, matrix, parent=None, cost=0, empty_cell_index=None, priority=None):
+    def __init__(self, matrix, parent=None, cost=0, empty_cell_index=None, heuristic=None):
         self.matrix = matrix
         self.parent = parent
         self.cost = cost
-        self.priority = priority
+        
+        if heuristic is None:
+            self.heuristic = 0
+        else:
+            self.heuristic = heuristic.evaluate(self.matrix)
+            
         if empty_cell_index is None:
             self.emptyCellIndex = self.locate_empty_cell()
         else:
             self.emptyCellIndex = empty_cell_index
 
+
     def __eq__(self, other):
         return self.matrix == other.matrix
+
 
     def __hash__(self):
         return hash(tuple(tuple(x) for x in self.matrix))
     
-#    def __lt__(self, other):
-#        if self.priority is not None:
-#            return self.priority(args) < other.priority(args)
+    
+    def __lt__(self, other):
+        try:
+            return (self.cost + self.heuristic) < (other.cost + other.heuristic)
+        except:
+            print("ERROR:", sys.exc_info()[0]) # check
+
 
     def locate_empty_cell(self):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0:
                     return [i,j]
+
 
     def generate_moves(self):
         next_states = []
@@ -51,6 +63,7 @@ class State:
 
         return next_states
 
+
     def is_goal_state(self):
         counter = 0
         for row in self.matrix:
@@ -60,6 +73,7 @@ class State:
                 else:
                     return False
         return True
+
 
     def is_solvable(self):
         count = 0

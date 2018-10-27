@@ -13,15 +13,15 @@ matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 # testState = State(matrix2)
 # print(testState.is_solvable())
 
-#path = puzzle_solver.solve_by_bfs(matrix)
-#path_list = []
-#while not path.empty():
-#    path_matrix = path.get().matrix
-#    print(path_matrix)
-#    path_list.append(path_matrix)
-#
-#puzzle_visualizer = visualizer.Visualizer(path_list, 140, -200, 240, 'black')
-#puzzle_visualizer.play()
+path = puzzle_solver.solve_by_bfs(matrix)
+path_list = []
+while not path.empty():
+    path_matrix = path.get().matrix
+    print(path_matrix)
+    path_list.append(path_matrix)
+
+puzzle_visualizer = visualizer.Visualizer(path_list, 140, -200, 240, 'black')
+puzzle_visualizer.play()
 
 
 
@@ -39,8 +39,9 @@ matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 # for state in nextStates:
 #     print(state.matrix)
 
-from informed_util import heuristic
+from informed_util import Heuristic
 
 a = [[0, 1, 2], [3, 4, 6], [5, 8, 7]]
-print('manhattan_distance', heuristic(a, distance.cityblock))
-print('euclidean_distance', heuristic(a, distance.euclidean))
+heuristic = Heuristic(distance.cityblock)
+print('manhattan_distance', heuristic.evaluate(a))
+#print('euclidean_distance', heuristic(a, distance.euclidean))

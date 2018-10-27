@@ -46,10 +46,3 @@ def get_path(current_state):
         path.put(current_state.parent)
         current_state = current_state.parent
     return path
-
-
-
-
-
-
-
