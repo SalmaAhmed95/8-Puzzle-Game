@@ -3,9 +3,12 @@ import tkinter as tk
 import time
 import turtle
 
+from tkinter import messagebox
 
 class Visualizer:
     def __init__(self, path, side_length, x, y, color):
+        if len(path) == 0:
+            messagebox.showerror("Error", "Puzzle is not solvable! ")
         self.path = path
         self.current_index = 0
         self.cells = path[self.current_index]
