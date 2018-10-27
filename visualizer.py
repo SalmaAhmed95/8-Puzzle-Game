@@ -3,6 +3,7 @@ import tkinter as tk
 import time
 import turtle
 
+from tkinter import messagebox
 
 class Visualizer:
     def __init__(self, path, side_length, x, y, color):
@@ -90,6 +91,8 @@ class Visualizer:
     def play(self):
         self.drawBoard()
         time.sleep(1)
+        if len(self.path) == 1:
+            messagebox.showerror("Error", "Puzzle is not solvable! ")
         self.root.mainloop()
 
 
