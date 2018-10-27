@@ -4,6 +4,13 @@ from state import State
 
 
 def solve(matrix, algorithm, prioritized=False, heuristic=None):
+    #    if prioritized and heuristic = None:
+#        raise Exception('Error: cannot execute without heuristic!')
+#    if not prioritized and heuristic is not None:
+#        heuristic=None # ignore heuristic
+    
+    search_depth = 0; # stores the maximum depth reached by the applied algorithm
+    
     frontier_list = frontier(algorithm)
     frontier_set = set() # for later search
     explored = set()
@@ -15,8 +22,11 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
             current_state = frontier_list.get()
             frontier_set.remove(current_state)
             explored.add(current_state)
+            
+            search_depth = max(search_depth, current_state.cost)
+            
             if current_state.is_goal_state():
-                return get_path(current_state),explored
+                return get_path(current_state), explored, search_depth
             next_states = current_state.generate_moves()
             for state in next_states:
                 if state not in explored and state not in frontier_set:
@@ -30,7 +40,7 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
     else:
         path = LifoQueue()
         path.put(start_state)
-        return path, explored
+        return path, explored, search_depth
 
 '''
 CLEAN
