@@ -5,14 +5,14 @@ from state import State
 
 def solve(matrix, algorithm, prioritized=False, heuristic=None):
     #    if prioritized and heuristic = None:
-#        raise Exception('Error: cannot execute without heuristic!')
-#    if not prioritized and heuristic is not None:
-#        heuristic=None # ignore heuristic
+    #        raise Exception('Error: cannot execute without heuristic!')
+    #    if not prioritized and heuristic is not None:
+    #        heuristic=None # ignore heuristic
     
-    search_depth = 0; # stores the maximum depth reached by the applied algorithm
+    search_depth = 0   # stores the maximum depth reached by the applied algorithm
     
     frontier_list = frontier(algorithm)
-    frontier_set = set() # for later search
+    frontier_set = set()     # for later search
     explored = set()
     start_state = State(matrix, heuristic=heuristic)
     if start_state.is_solvable():
@@ -46,6 +46,9 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
 '''
 CLEAN
 '''
+# specify container according to search algorithm
+
+
 def frontier(algorithm):
     if algorithm == 'bfs':
         return Queue()
@@ -53,6 +56,8 @@ def frontier(algorithm):
         return LifoQueue()
     elif algorithm == 'a_star':
         return PriorityQueue()
+
+# retrieve path till the goal
 
 
 def get_path(current_state):
@@ -62,6 +67,8 @@ def get_path(current_state):
         path.put(current_state.parent)
         current_state = current_state.parent
     return path
+
+# calculate the path cost
 
 
 def cost(path):

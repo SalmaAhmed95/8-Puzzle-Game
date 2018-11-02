@@ -1,6 +1,7 @@
 import copy
 import sys
 
+
 class State:
     def __init__(self, matrix, parent=None, cost=0, empty_cell_index=None, heuristic=None):
         self.matrix = matrix
@@ -18,28 +19,23 @@ class State:
         else:
             self.emptyCellIndex = empty_cell_index
 
-
     def __eq__(self, other):
         return self.matrix == other.matrix
-    
-    
+
     def __lt__(self, other):
         try:
             return (self.cost + self.heuristic_cost) < (other.cost + other.heuristic_cost)
         except:
             print("Error when executing __lt__:", sys.exc_info()[0])
-            
     
     def __hash__(self):
         return hash(tuple(tuple(x) for x in self.matrix))
-
 
     def locate_empty_cell(self):
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] == 0:
                     return [i,j]
-
 
     def generate_moves(self):
         next_states = []
@@ -68,7 +64,6 @@ class State:
 
         return next_states
 
-
     def is_goal_state(self):
         counter = 0
         for row in self.matrix:
@@ -78,7 +73,6 @@ class State:
                 else:
                     return False
         return True
-
 
     def is_solvable(self):
         count = 0

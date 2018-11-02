@@ -1,9 +1,9 @@
-from queue import LifoQueue
 import tkinter as tk
 import time
 import turtle
 
 from tkinter import messagebox
+
 
 class Visualizer:
     def __init__(self, path, side_length, x, y, color):
@@ -29,7 +29,7 @@ class Visualizer:
     def set_matrix(self, updated_matrix):
         self.cells = updated_matrix
 
-    def drawSquare(self, side):
+    def draw_square(self, side):
         position = self.t.position()
 
         self.t.pendown()
@@ -42,7 +42,7 @@ class Visualizer:
         self.t.goto(position)
         self.t.pendown()
 
-    def drawBoard(self):
+    def draw_board(self):
         for row in range(3):
             for col in range(3):
                 self.t.penup()
@@ -50,7 +50,7 @@ class Visualizer:
                 topLeftX = self.posX + col * self.SIZE
                 topLeftY = self.posY - row * self.SIZE
                 self.t.goto(topLeftX, topLeftY)
-                self.drawSquare(self.SIZE)
+                self.draw_square(self.SIZE)
 
                 self.t.penup()
                 self.t.goto(topLeftX, topLeftY)
@@ -76,7 +76,7 @@ class Visualizer:
             self.canvas.delete("all")
             self.t.clear()
             self.set_matrix(self.path[self.current_index])
-            self.drawBoard()
+            self.draw_board()
 
     def next(self):
         if self.current_index < len(self.path) - 1:
@@ -86,10 +86,10 @@ class Visualizer:
             self.canvas.delete("all")
             self.t.clear()
             self.set_matrix(self.path[self.current_index])
-            self.drawBoard()
+            self.draw_board()
 
     def play(self):
-        self.drawBoard()
+        self.draw_board()
         time.sleep(1)
         if len(self.path) == 1:
             messagebox.showerror("Error", "Puzzle is not solvable! ")

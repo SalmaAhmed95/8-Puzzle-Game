@@ -1,16 +1,12 @@
-from state import State
 import puzzle_solver
 import visualizer
-from queue import LifoQueue, Queue, PriorityQueue
-from heap_util import decrease_key
-#from scipy.spatial import distance
+from scipy.spatial import distance
 from informed_util import Heuristic
-import copy
 
 matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 
-# path, explored, search_depth = puzzle_solver.solve(matrix, 'a_star', prioritized=True, heuristic=Heuristic(distance.cityblock))
-path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'bfs')
+path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'a_star', prioritized=True, heuristic=Heuristic(distance.cityblock))
+# path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'bfs')
 path_list = []
 
 print("PATH:")

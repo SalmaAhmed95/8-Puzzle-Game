@@ -9,7 +9,7 @@ class Heuristic:
         for i, row in enumerate(matrix):
             for j, cur in enumerate(row):
                 if cur != 0:
-                    goal_row = cur // n_rows # expected x-coordinate (row)
-                    goal_col = cur % n_cols # expected y-coordinate (col)
+                    goal_row = cur // n_rows  # expected x-coordinate (row)
+                    goal_col = cur % n_cols  # expected y-coordinate (col)
                     h += self.heuristic_fn((i, j), (goal_row, goal_col))
         return h
