@@ -5,7 +5,7 @@
 
 def decrease_key(heap, startpos, pos, new):
     if new.cost < heap[pos].cost:
-        while pos > startpos:  # follow the path to the root, moving parents down until finding a place wher newitem fits
+        while pos > startpos:  # follow the path to the root, moving parents down until finding a place where new item fits
             parentpos = (pos - 1) >> 1
             parent = heap[parentpos]
             if new < parent:

@@ -41,7 +41,7 @@ def solve(matrix, algorithm, prioritized=False, heuristic=None):
     else:
         path = LifoQueue()
         path.put(start_state)
-        return path, explored, search_depth
+        return path, cost(path), explored, search_depth
 
 '''
 CLEAN

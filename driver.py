@@ -5,8 +5,8 @@ from informed_util import Heuristic
 
 matrix  = [[1,2,5],[3,4,0],[6,7,8]]
 
-path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'a_star', prioritized=True, heuristic=Heuristic(distance.cityblock))
-# path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'bfs')
+#path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'a_star', prioritized=True, heuristic=Heuristic(distance.cityblock))
+path, cost, explored, search_depth = puzzle_solver.solve(matrix, 'dfs')
 path_list = []
 
 print("PATH:")
@@ -22,6 +22,10 @@ print()
 
 print("EXPLORED:")
 print([state.matrix for state in explored])
+print()
+
+print("No of turns:")
+print(len(explored) - 1)
 print()
 
 print("SEARCH DEPTH:")
